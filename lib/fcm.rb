@@ -215,7 +215,10 @@ class FCM
   def build_one_shot_connection(uri, extra_headers)
     ::Faraday.new(
       url: uri,
-      request: { timeout: @http_options.fetch(:timeout, DEFAULT_TIMEOUT) }
+      request: {
+        timeout: @http_options.fetch(:timeout, DEFAULT_TIMEOUT),
+        open_timeout: @http_options.fetch(:open_timeout, DEFAULT_TIMEOUT),
+      }
     ) do |faraday|
       faraday.adapter Faraday.default_adapter
       apply_default_headers(faraday, extra_headers)
